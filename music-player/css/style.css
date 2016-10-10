@@ -14,10 +14,6 @@ body{
 	height:500px;
 	float:left;
 	background-color:white;}
-.lrcpart{
-	width:350px;
-	height:500px;
-	float:left;}
 .image{
 	width:350px;
 	height:300px;}
@@ -70,6 +66,38 @@ body{
 	display:inline-block;
 	
 	}
-.lrcpart{
-	background-color:gray;
-	opacity:0.4;}
+#lrcpart{
+	width:350px;
+	height:500px;
+	float:left;
+	background-color:rgba(192,192,192,0.4);
+	overflow: hidden;
+	}
+#lrcpart ul{
+	list-style-type:none;
+	}
+#lrcpart ul li{
+	padding:5px;
+	height:24px;
+	color:white;
+	}
+
+
+.nowli{
+	color:red;}
+	
+#play-list{
+	width:700px;
+	height:200px;
+	background-color:white;
+	clear:both;
+	border-top:solid gray 1px;}
+#play-list h2{
+	padding-left:15px;
+	}
+#play-list ul{
+	list-style-type:none;}
+#play-list ul li{
+	padding:5px;
+	color:blue;
+	}

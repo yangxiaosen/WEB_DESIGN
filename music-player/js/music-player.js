@@ -1,7 +1,8 @@
 // JavaScript Document
 var textlrc;
 window.onload=function(){
-	var songs=["Eagles-TheLastResort.mp3","GunsN'Roses-Don'tCry(Original).mp3","JohnLennon-Imagine.mp3"];
+	var songs=["http://om52ixlhi.bkt.clouddn.com/Eagles-TheLastResort.mp3","http://om52ixlhi.bkt.clouddn.com/GunsNRoses-DontCry.mp3","http://om52ixlhi.bkt.clouddn.com/JohnLennon-Imagine.mp3"];
+	var songsname=["Eagles-TheLastResort","GunsN'Roses-Don'tCry(Original)","JohnLennon-Imagine"];
 	var player=document.getElementById("player");
         
 	controlplay(player,songs);
@@ -24,7 +25,7 @@ var controlplay=function(player,songs){
 			if(player.src){
 					player.play();}
 		    else{
-			        player.src='songs/'+songs[0];
+			        player.src=songs[0];
 					lrcshow(player);}
 			        img.src="images/8.JPG";
 					player.play();
@@ -44,11 +45,11 @@ var changesong=function(player,songs){
 	var changebtu=document.getElementById("change-btu");
 	var startbtu=document.getElementById("start-btu");
 	var img=startbtu.getElementsByTagName("img")[0];
-	var str= window.location.href;
-	str=str.replace('index.html','');
+	//var str= window.location.href;
+	//str=str.replace('index.html','');
 	changebtu.onclick=function(){
 	if(player.src){
-			var songname=player.src.replace(str+'songs/','');
+			var songname=player.src;
 			for(i=0;i<songs.length;i++){
 				if(songs[i]==songname){
 					var index=i;}
@@ -61,7 +62,7 @@ var changesong=function(player,songs){
 	else{
 		newsong=songs[0];
 		}
-	player.src='songs/'+newsong;
+	player.src=newsong;
 	player.play();
 	img.src="images/8.JPG";
 	changename(player);
@@ -73,9 +74,8 @@ var changesong=function(player,songs){
 //控制歌曲名称，歌手名
 var changename=function(player){
 	var name=document.getElementsByClassName("test");//懒得重写getclass
-	var str= window.location.href;
-	str=str.replace('index.html','');
-	var songname=player.src.replace(str+'songs/','').replace('.mp3','');
+	var str="http://om52ixlhi.bkt.clouddn.com/";
+	var songname=player.src.replace(str,'').replace('.mp3','');
 	if(player.src){
 		name[0].innerHTML=songname.split("-")[1];
 		name[2].innerHTML=songname.split("-")[0];
@@ -140,9 +140,8 @@ var voicecontrol=function(player){
 //歌词显示部分
 var lrcshow=function(player){
 	var lrcpart=document.getElementById("lrcpart");
-	var str= window.location.href;
-	str=str.replace('index.html','');
-	var songname=player.src.replace(str+'songs/','').replace('.mp3','');
+	var str="http://om52ixlhi.bkt.clouddn.com/";
+	var songname=player.src.replace(str,'').replace('.mp3','');
 	//console.log(songname);
 	//var lyric1="justtext";
 	var xhr=new XMLHttpRequest();
@@ -200,6 +199,7 @@ var setlyric=function(lyric1,player){
 		}
 	textlrc=lrc;
 	console.log(lrc)
+	lrcpart.scrollTop=-272;
 	var myScroll = setInterval("scrolllrc(textlrc,player)",1000);
 	//var t=setTimeout("setlyric(lyric1,player)",1000);
 	}
@@ -210,13 +210,14 @@ var scrolllrc=function(lrc,player){
 	var ul=document.getElementById('lrc-ul');
 	var lrcpart1=document.getElementById("lrcpart");
 	//console.log(ul)
+	//lrcpart1.scrollTop=0;
 	for(i=0;i<lrc.length;i++){
 		    var currenttime=Math.round(player.currentTime);
 			if(currenttime==lrc[i][0]){
 				var nowli=ul.getElementsByClassName('t'+lrc[i][0])[0];
 				nowli.style.color='#00FFFF';
-				lrcpart1.scrollTop+=25;
-				console.log(lrcpart1.scrollTop);
+				lrcpart1.scrollTop=34*i-272;
+				//console.log(lrcpart1.scrollTop);
 				for(y=0;y<lrc.length;y++){
 					if(currenttime!=lrc[y][0]){
 						var oldli=ul.getElementsByClassName('t'+lrc[y][0])[0];
@@ -230,9 +231,8 @@ var scrolllrc=function(lrc,player){
 		
 //定义歌曲封面变化函数
 var changeimage=function(player){
-	var str= window.location.href;
-	str=str.replace('index.html','');
-	var songname=player.src.replace(str+'songs/','').replace('.mp3','');
+	var str="http://om52ixlhi.bkt.clouddn.com/";
+	var songname=player.src.replace(str,'').replace('.mp3','');
 	var image=document.getElementById("albumimage");
 	//alert(songname)
 	image.src='images/'+songname+'.jpg';
@@ -240,9 +240,11 @@ var changeimage=function(player){
 //定义播放列表显示
 var playlist=function(songs){
 	var playlistul=document.getElementById("play-list").getElementsByTagName('ul')[0];
+	var str="http://om52ixlhi.bkt.clouddn.com/";
+	//.replace(str,'').replace('.mp3','');
 	for(i=0;i<songs.length;i++){
-		var singer=songs[i].split('-')[0];
-		var song=songs[i].split('-')[1];
+		var singer=songs[i].replace(str,'').replace('.mp3','').split('-')[0];
+		var song=songs[i].replace(str,'').replace('.mp3','').split('-')[1];
 		var li=document.createElement('li');
 		li.innerHTML='歌手：'+singer+'------'+'歌曲：'+song;
 		playlistul.appendChild(li);

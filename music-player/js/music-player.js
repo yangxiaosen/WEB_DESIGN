@@ -198,7 +198,8 @@ var setlyric=function(lyric1,player){
 		ul.appendChild(li);
 		}
 	textlrc=lrc;
-	//console.log(lrc)
+	console.log(lrc)
+	lrcpart.scrollTop=-272;
 	var myScroll = setInterval("scrolllrc(textlrc,player)",1000);
 	//var t=setTimeout("setlyric(lyric1,player)",1000);
 	}
@@ -209,12 +210,13 @@ var scrolllrc=function(lrc,player){
 	var ul=document.getElementById('lrc-ul');
 	var lrcpart1=document.getElementById("lrcpart");
 	//console.log(ul)
+	//lrcpart1.scrollTop=0;
 	for(i=0;i<lrc.length;i++){
 		    var currenttime=Math.round(player.currentTime);
 			if(currenttime==lrc[i][0]){
 				var nowli=ul.getElementsByClassName('t'+lrc[i][0])[0];
 				nowli.style.color='#00FFFF';
-				lrcpart1.scrollTop+=25;
+				lrcpart1.scrollTop=34*i-272;
 				//console.log(lrcpart1.scrollTop);
 				for(y=0;y<lrc.length;y++){
 					if(currenttime!=lrc[y][0]){

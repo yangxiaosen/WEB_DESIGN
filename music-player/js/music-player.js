@@ -198,7 +198,7 @@ var setlyric=function(lyric1,player){
 		ul.appendChild(li);
 		}
 	textlrc=lrc;
-	console.log(lrc)
+	//console.log(lrc)
 	lrcpart.scrollTop=-272;
 	var myScroll = setInterval("scrolllrc(textlrc,player)",1000);
 	//var t=setTimeout("setlyric(lyric1,player)",1000);
